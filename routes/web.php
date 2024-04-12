@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AccessoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductController::class, 'computersIndex'])->name('products.computer');
+Route::get('/phone', [ProductController::class, 'phoneIndex'])->name('products.phone');
+Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/accessories', [AccessoryController::class, 'index'])->name('accessories.index');
+Route::get('/accessories/{accessory}', [AccessoryController::class, 'show'])->name('accessories.show');
+
+

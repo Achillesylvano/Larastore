@@ -4,31 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function phoneIndex()
     {
-        //
+        $products = Product::where('type',true)->paginate(12);
+
+        return view('product.phone.index',[
+            'products' => $products
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
+     /**
+     * Display a listing of the computer products.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function computersIndex()
     {
-        //
-    }
+        $products = Product::where('type',false)->paginate(12);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('product.computer.index',[
+            'products' => $products
+        ]);
     }
 
     /**
@@ -36,30 +39,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        return view('product.show',[
+            'product' => $product
+        ]);
     }
 }
