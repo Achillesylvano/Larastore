@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AccessoryController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\AccessoryController as AdminAccessoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,7 @@ Route::get('/accessories', [AccessoryController::class, 'index'])->name('accesso
 Route::get('/accessories/{accessory}', [AccessoryController::class, 'show'])->name('accessories.show');
 
 
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::resource('product', AdminProductController::class)->except(['show']);
+    Route::resource('accessory',AdminAccessoryController::class)->except(['show']);
+});

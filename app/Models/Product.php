@@ -14,6 +14,8 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['brand','description','price','sold','status','type'];
+
     public function processor(): BelongsTo
     {
         return $this->belongsTo(Processor::class);
