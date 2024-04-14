@@ -1,3 +1,7 @@
+@php
+    $imgcomputer = asset('img/computer.jpg');
+    $imgphone = asset('img/phone.webp');
+@endphp
 @extends('base')
 
 @section('content')
@@ -8,8 +12,7 @@
                 <div class="bg-white rounded-lg shadow-lg md:flex md:items-center">
                     <div class="w-full h-full md:m-10 md:w-1/2 lg:h-96">
                         <img class="object-contain w-full h-full max-w-lg mx-auto rounded-md"
-                            src="./Casque-Sans-Fil-Pliable-pour-SAMSUNG-Galaxy-E7-Smartphone-Bluetooth-Boutons-Reglable-Son-Universel-BLEU.jpg"
-                            alt="Nike Air" />
+                            src="{{ $product->type ? $imgphone : $imgcomputer }}" alt="products picture" />
                     </div>
                     <div class="w-full max-w-lg p-8 mx-auto md:ml-8 md:mt-0 md:w-1/2">
                         <h3 class="text-lg text-gray-700 uppercase">{{ $product->brand }}</h3>

@@ -1,7 +1,7 @@
 <div class="w-64 p-3 duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl hover:transform hover:scale-105 h-80">
     <div class="relative flex items-end h-48 overflow-hidden rounded-xl">
         <!-- Hauteur un peu plus carrée -->
-        <img src="./assets/pc/c08703807.png" class="object-contain w-full h-full" alt="Computer Photo" />
+        <img src="{{ asset('img/computer.jpg') }}" class="object-contain w-full h-full" alt="Computer Photo" />
     </div>
     <a class="p-2 m-auto" href="{{ route('products.show', $product) }}">
         <h2 class="text-slate-700">{{ $product->brand }}</h2>

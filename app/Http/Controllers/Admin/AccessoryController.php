@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Accessory;
 use Illuminate\Http\Request;
+use App\Models\Accessory\Property;
 use App\Http\Controllers\Controller;
 
 class AccessoryController extends Controller
@@ -50,7 +51,8 @@ class AccessoryController extends Controller
     public function edit(Accessory $accessory)
     {
         return view('admin.accessory.edit',[
-            'accessory' => $accessory
+            'accessory' => $accessory,
+            'properties' => Property::pluck('category','id')
         ]);
     }
 

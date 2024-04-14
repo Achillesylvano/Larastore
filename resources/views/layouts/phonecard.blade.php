@@ -1,6 +1,6 @@
 <div class="w-64 p-3 duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl hover:transform hover:scale-105 h-96">
     <div class="relative flex items-end h-64 overflow-hidden rounded-xl">
-        <img src="./assets/img/Apple-iPhone-14-Pro-Max-350.jpg" class="object-contain w-full h-full" alt="smartphone" />
+        <img src="{{ asset('img/phone.webp') }}" class="object-contain w-full h-full" alt="smartphone" />
     </div>
     <a class="p-2 m-auto" href="{{ route('products.show', $product) }}">
         <h2 class="text-slate-700">{{ $product->brand }}</h2>

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Productproperty\Ram;
+use App\Http\Controllers\Controller;
+use App\Models\Productproperty\Size;
+use App\Models\Productproperty\Storage;
+use App\Models\Productproperty\Processor;
 
 class ProductController extends Controller
 {
@@ -49,9 +53,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        dd($product);
         return view('admin.product.edit',[
-            'product' => $product
+            'product' => $product,
+            'processors' => Processor::pluck('name','id'),
+            'rams' => Ram::pluck('id','capacity'),
+            'sizes' => Size::pluck('id','length'),
+            'storages' => Storage::pluck('id','capacity')
         ]);
     }
 
