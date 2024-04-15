@@ -8,6 +8,7 @@ use App\Models\Productproperty\Ram;
 use App\Http\Controllers\Controller;
 use App\Models\Productproperty\Size;
 use App\Models\Productproperty\Storage;
+use App\Http\Requests\ProductFormRequest;
 use App\Models\Productproperty\Processor;
 
 class ProductController extends Controller
@@ -17,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id')->paginate(15);
+        $products = Product::orderBy('created_at','desc')->paginate(15);
 
         return view('admin.product.index',[
             'products' => $products
@@ -29,15 +30,27 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $product = new Product;
+
+        return view('admin.product.edit-create',[
+            'product' => $product,
+            'processors' => Processor::pluck('name','id'),
+            'rams' => Ram::pluck('capacity','id'),
+            'sizes' => Size::pluck('length','id'),
+            'storages' => Storage::pluck('capacity','id')
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $product = Product::create($data);
+
+        return to_route('admin.product.index')->with('success','Le produit a bien été créé');
     }
 
     /**
@@ -53,21 +66,26 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.product.edit',[
+        return view('admin.product.edit-create',[
             'product' => $product,
             'processors' => Processor::pluck('name','id'),
-            'rams' => Ram::pluck('id','capacity'),
-            'sizes' => Size::pluck('id','length'),
-            'storages' => Storage::pluck('id','capacity')
+            'rams' => Ram::pluck('capacity','id'),
+            'sizes' => Size::pluck('length','id'),
+            'storages' => Storage::pluck('capacity','id')
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductFormRequest $request, Product $product)
     {
-        //
+        $data = $request->validated();
+
+        $product->update($data);
+
+        return to_route('admin.product.index')->with('success','Le produit a bien été modifier');
+
     }
 
     /**

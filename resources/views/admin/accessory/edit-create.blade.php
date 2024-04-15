@@ -46,21 +46,15 @@
                                     <img class="mb-4 rounded-lg w-full h-full sm:mb-0 xl:mb-4 2xl:mb-0 object-contain"
                                         src="{{ asset('img/chargeur.webp') }}" alt="product picture">
                                 </div>
-
                                 <div>
-                                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Profile picture</h3>
+                                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Accessory picture</h3>
                                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
                                         JPG, GIF or PNG. Max size of 800K
                                     </div>
-                                    <div class="flex items-center space-x-4">
-                                        <button type="button"
-                                            class="py-2 px-3 rounde mr-3 hidden bg-blue-700 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">
-                                            Upload picture
-                                        </button>
-                                        <button type="button"
-                                            class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                            Delete
-                                        </button>
+                                    <div
+                                        class="py-2 px-3 rounde mr-3 hidden bg-blue-700 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">
+                                        <label class="form-label text-white m-1" for="customFile">Upload picture</label>
+                                        <input type="file" name="image" class="hidden" id="customFile" />
                                     </div>
                                 </div>
                             </div>
@@ -97,11 +91,12 @@
                                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                                         <select id="property"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            @foreach ($properties as $property)
-                                                <option value="{{ $property }}" @selected(old('property') == $property)>
-                                                    {{ $property }}
+                                            @foreach ($properties as $k => $v)
+                                                <option @selected($accessory->property->id == $k) value="{{ $k }}">
+                                                    {{ $v }}
                                                 </option>
                                             @endforeach
+
                                         </select>
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">

@@ -16,6 +16,11 @@ use App\Http\Controllers\Admin\AccessoryController as AdminAccessoryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::resource('product', AdminProductController::class)->except(['show']);
+    Route::resource('accessory',AdminAccessoryController::class)->except(['show']);
+});
+
 
 Route::get('/', [ProductController::class, 'computersIndex'])->name('products.computer');
 Route::get('/phone', [ProductController::class, 'phoneIndex'])->name('products.phone');
@@ -25,7 +30,3 @@ Route::get('/accessories', [AccessoryController::class, 'index'])->name('accesso
 Route::get('/accessories/{accessory}', [AccessoryController::class, 'show'])->name('accessories.show');
 
 
-Route::prefix('admin')->name('admin.')->group(function() {
-    Route::resource('product', AdminProductController::class)->except(['show']);
-    Route::resource('accessory',AdminAccessoryController::class)->except(['show']);
-});

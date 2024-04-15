@@ -1,13 +1,13 @@
 <div class="w-64 p-3 duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl hover:transform hover:scale-105 h-80">
     <div class="relative flex items-end h-48 overflow-hidden rounded-xl">
         <!-- Hauteur un peu plus carrée -->
-        <img src="./assets/pc/c08703807.png" class="object-contain w-full h-full" alt="Computer Photo" />
+        <img src="{{ asset('img/ecouteurs-bluetooth.webp') }}" class="object-contain w-full h-full" alt="Computer Photo" />
     </div>
     <a class="p-2 mt-1" href="{{ route('accessories.show', $accessory) }}">
         <h2 class="text-gray-900">{{ $accessory->brand }}</h2>
         <p class="mt-1">
-            <span class="text-xs text-slate-700 mt-3">{{ $accessory->property->category }} -</span>
-            <span class="text-xs font-light text-orange-500 mb-2">{{ $accessory->status ? 'Nouveau' : 'Occasion' }}
+            <span class="mt-3 text-xs text-slate-700">{{ $accessory->property->category }} -</span>
+            <span class="mb-2 text-xs font-light text-orange-500">{{ $accessory->status ? 'Nouveau' : 'Occasion' }}
             </span>
         </p>
         <div class="flex items-end justify-between m-auto">

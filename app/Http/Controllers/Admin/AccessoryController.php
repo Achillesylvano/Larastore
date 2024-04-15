@@ -50,6 +50,7 @@ class AccessoryController extends Controller
      */
     public function edit(Accessory $accessory)
     {
+        
         return view('admin.accessory.edit',[
             'accessory' => $accessory,
             'properties' => Property::pluck('category','id')

@@ -6,10 +6,10 @@
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div class="pb-4 bg-white dark:bg-gray-900 pt-4 px-3 ">
-                    <button type="button"
+                    <a href="{{ route('admin.product.create') }}"
                         class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">
                         Add new product
-                    </button>
+                    </a>
 
                 </div>
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
