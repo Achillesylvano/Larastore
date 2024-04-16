@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Models\Productproperty\Ram;
 use App\Models\Productproperty\Size;
-use App\Models\Productproperty\Storage;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Productproperty\Processor;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Productproperty\Storage as ProductStorage;
 
 class Product extends Model
 {
@@ -20,6 +21,7 @@ class Product extends Model
         'price',
         'sold',
         'status',
+        'image',
         'type',
         'processor_id',
         'ram_id',
@@ -44,6 +46,16 @@ class Product extends Model
 
     public function storage(): BelongsTo
     {
-        return $this->belongsTo(Storage::class);
+        return $this->belongsTo(ProductStorage::class);
+    }
+
+    /**
+     * Retourne le chemin de l'image
+     * si l'image ne s'affiche pas
+     * changer le APP_URL dans .env
+     * @return string
+     */
+    public function imageUrl() : string {
+        return Storage::disk('public')->url($this->image);
     }
 }

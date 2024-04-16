@@ -8,8 +8,7 @@
                 <div class="bg-white rounded-lg shadow-lg md:flex md:items-center">
                     <div class="w-full h-full md:m-10 md:w-1/2 lg:h-96">
                         <img class="object-contain w-full h-full max-w-lg mx-auto rounded-md"
-                            src="./Casque-Sans-Fil-Pliable-pour-SAMSUNG-Galaxy-E7-Smartphone-Bluetooth-Boutons-Reglable-Son-Universel-BLEU.jpg"
-                            alt="Nike Air" />
+                            src="{{ $accessory->imageUrl() }}" alt="accessory photo" />
                     </div>
                     <div class="w-full max-w-lg p-8 mx-auto md:ml-8 md:mt-0 md:w-1/2">
                         <h3 class="text-lg text-gray-700 uppercase">{{ $accessory->brand }}</h3>
@@ -36,7 +35,7 @@
                                 <span class="text-sm font-medium text-gray-500">
                                     Prix :
                                 </span>
-                                <dd class="mt-1 text-sm text-blue-500 font-bold sm:mt-0 sm:col-span-2">
+                                <dd class="mt-1 text-sm font-bold text-blue-500 sm:mt-0 sm:col-span-2">
                                     ${{ $accessory->price }}
                                 </dd>
                             </div>
@@ -52,7 +51,7 @@
 
                         <div class="mt-3">
                             <label class="text-sm text-gray-700" for="count">Description:</label>
-                            <div class="flex items-center mt-1  text-gray-900">
+                            <div class="flex items-center mt-1 text-gray-900">
                                 <span>{{ $accessory->description }}</span>
                             </div>
                         </div>

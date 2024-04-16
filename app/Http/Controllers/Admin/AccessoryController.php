@@ -6,6 +6,7 @@ use App\Models\Accessory;
 use Illuminate\Http\Request;
 use App\Models\Accessory\Property;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AccessoryFormRequest;
 
 class AccessoryController extends Controller
 {
@@ -26,15 +27,23 @@ class AccessoryController extends Controller
      */
     public function create()
     {
-        //
+        $accessory = new Accessory;
+
+        return view('admin.accessory.edit-create',[
+            'accessory' => $accessory,
+            'properties' => Property::pluck('category','id'),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AccessoryFormRequest $request)
     {
-        //
+        $accessory = new Accessory;
+        $accessory = Accessory::create($this->handleData($accessory,$request));
+
+        return to_route('admin.accessory.index')->with('success','L \' accessoire a bien été créé');
     }
 
     /**
@@ -51,7 +60,7 @@ class AccessoryController extends Controller
     public function edit(Accessory $accessory)
     {
         
-        return view('admin.accessory.edit',[
+        return view('admin.accessory.edit-create',[
             'accessory' => $accessory,
             'properties' => Property::pluck('category','id')
         ]);
@@ -60,16 +69,43 @@ class AccessoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AccessoryFormRequest $request, Accessory $accessory)
     {
-        //
+        $data = $this->handleData($accessory,$request);
+        $accessory->update($data);
+
+        return to_route('admin.accessory.index')->with('success','L \' accessoire a bien été modifier');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Accessory $accessory)
     {
-        //
+        if($accessory->image){
+            Storage::disk('public')->delete($accessory->image);
+        }
+        $accessory->delete();
+        return to_route('admin.accessory.index')->with('success','L\' accessoire a bien été supprimer');
+
+    }
+
+    private function handleData(Accessory $accessory, AccessoryFormRequest $request): array
+    {
+        $data = $request->validated();
+
+        /**
+         * @var UploadedFile|null $image
+         */
+        $image = $request->validated('image');
+        if($image === null || $image->getError()){
+            return $data;
+        }
+        if($accessory->image){
+            Storage::disk('public')->delete($accessory->image);
+        }
+        $data['image'] = $image->store('accessory','public');
+        return $data;
     }
 }

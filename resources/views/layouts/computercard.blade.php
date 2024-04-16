@@ -1,11 +1,11 @@
 <div class="w-64 p-3 duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl hover:transform hover:scale-105 h-80">
     <div class="relative flex items-end h-48 overflow-hidden rounded-xl">
         <!-- Hauteur un peu plus carrée -->
-        <img src="{{ asset('img/computer.jpg') }}" class="object-contain w-full h-full" alt="Computer Photo" />
+        <img src="{{ $product->imageUrl() }}" class="object-contain w-full h-full" alt="Computer Photo" />
     </div>
     <a class="p-2 m-auto" href="{{ route('products.show', $product) }}">
         <h2 class="text-slate-700">{{ $product->brand }}</h2>
-        <p class="text-xs font-light text-orange-500 mb-2">{{ $product->status ? 'Nouveau' : 'Occasion' }}</p>
+        <p class="mb-2 text-xs font-light text-orange-500">{{ $product->status ? 'Nouveau' : 'Occasion' }}</p>
         <div class="flex items-end justify-between mt-3">
             <p class="text-lg font-bold text-blue-500">${{ $product->price }}</p>
             <div

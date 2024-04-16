@@ -1,7 +1,3 @@
-@php
-    $imgcomputer = asset('img/computer.jpg');
-    $imgphone = asset('img/phone.webp');
-@endphp
 @extends('base')
 
 @section('content')
@@ -11,12 +7,12 @@
 
                 <div class="bg-white rounded-lg shadow-lg md:flex md:items-center">
                     <div class="w-full h-full md:m-10 md:w-1/2 lg:h-96">
-                        <img class="object-contain w-full h-full max-w-lg mx-auto rounded-md"
-                            src="{{ $product->type ? $imgphone : $imgcomputer }}" alt="products picture" />
+                        <img class="object-contain w-full h-full max-w-lg mx-auto rounded-md" src="{{ $product->imageUrl() }}"
+                            alt="products picture" />
                     </div>
                     <div class="w-full max-w-lg p-8 mx-auto md:ml-8 md:mt-0 md:w-1/2">
                         <h3 class="text-lg text-gray-700 uppercase">{{ $product->brand }}</h3>
-                        <span class="text-blue-500 mt-3 font-bold">${{ $product->price }} -</span>
+                        <span class="mt-3 font-bold text-blue-500">${{ $product->price }} -</span>
                         <span class="mb-2 font-light text-orange-500">
                             {{ $product->status ? 'Nouveau' : 'Occasion' }}
                         </span>
@@ -66,7 +62,7 @@
 
                         <div class="mt-3">
                             <label class="text-sm text-gray-700" for="count">Description:</label>
-                            <div class="flex items-center mt-1  text-gray-900">
+                            <div class="flex items-center mt-1 text-gray-900">
                                 <span>{{ $product->description }}</span>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 <div class="w-64 p-3 duration-300 bg-white shadow-lg rounded-xl hover:shadow-xl hover:transform hover:scale-105 h-80">
     <div class="relative flex items-end h-48 overflow-hidden rounded-xl">
         <!-- Hauteur un peu plus carrée -->
-        <img src="{{ asset('img/ecouteurs-bluetooth.webp') }}" class="object-contain w-full h-full" alt="Computer Photo" />
+        <img src="{{ $accessory->imageUrl() }}" class="object-contain w-full h-full" alt="accessory photo" />
     </div>
     <a class="p-2 mt-1" href="{{ route('accessories.show', $accessory) }}">
         <h2 class="text-gray-900">{{ $accessory->brand }}</h2>

@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Productproperty\Ram;
 use App\Http\Controllers\Controller;
 use App\Models\Productproperty\Size;
-use App\Models\Productproperty\Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Productproperty\Processor;
+use App\Models\Productproperty\Storage as ProductStorage;
 
 class ProductController extends Controller
 {
@@ -37,7 +38,7 @@ class ProductController extends Controller
             'processors' => Processor::pluck('name','id'),
             'rams' => Ram::pluck('capacity','id'),
             'sizes' => Size::pluck('length','id'),
-            'storages' => Storage::pluck('capacity','id')
+            'storages' => ProductStorage::pluck('capacity','id')
         ]);
     }
 
@@ -46,9 +47,8 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
-        $data = $request->validated();
-
-        $product = Product::create($data);
+        $product = new Product;
+        $product = Product::create($this->handleData($product,$request));
 
         return to_route('admin.product.index')->with('success','Le produit a bien été créé');
     }
@@ -71,7 +71,7 @@ class ProductController extends Controller
             'processors' => Processor::pluck('name','id'),
             'rams' => Ram::pluck('capacity','id'),
             'sizes' => Size::pluck('length','id'),
-            'storages' => Storage::pluck('capacity','id')
+            'storages' => ProductStorage::pluck('capacity','id')
         ]);
     }
 
@@ -80,8 +80,7 @@ class ProductController extends Controller
      */
     public function update(ProductFormRequest $request, Product $product)
     {
-        $data = $request->validated();
-
+        $data = $this->handleData($product,$request);
         $product->update($data);
 
         return to_route('admin.product.index')->with('success','Le produit a bien été modifier');
@@ -93,6 +92,29 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if($product->image){
+            Storage::disk('public')->delete($product->image);
+        }
+        $product->delete();
+        return to_route('admin.product.index')->with('success','Le produit a bien été supprimer');
+
+    }
+
+    private function handleData(Product $product, ProductFormRequest $request): array
+    {
+        $data = $request->validated();
+
+        /**
+         * @var UploadedFile|null $image
+         */
+        $image = $request->validated('image');
+        if($image === null || $image->getError()){
+            return $data;
+        }
+        if($product->image){
+            Storage::disk('public')->delete($product->image);
+        }
+        $data['image'] = $image->store('product','public');
+        return $data;
     }
 }

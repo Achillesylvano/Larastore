@@ -5,14 +5,14 @@
         <div class="container px-6 mx-auto">
 
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <div class="pb-4 bg-white dark:bg-gray-900 pt-4 px-3 ">
+                <div class="px-3 pt-4 pb-4 bg-white dark:bg-gray-900 ">
                     <a href="{{ route('admin.product.create') }}"
                         class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">
                         Add new product
                     </a>
 
                 </div>
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <table class="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
@@ -50,10 +50,19 @@
                                     ${{ number_format($product->price, thousands_separator: ' ') }}
                                 </td>
                                 <td class="p-4 space-x-2 whitespace-nowrap">
+
                                     <a href="{{ route('admin.product.edit', $product) }}"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    <a href="#"
-                                        class="font-medium text-red-600 dark:text-red-500 hover:underline ml-4">Remove</a>
+                                        class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">
+                                        Edit
+                                    </a>
+                                    <button data-modal-target="{{ $product->id }}" data-modal-toggle="{{ $product->id }}"
+                                        class="rounde mr-3 hidden bg-red-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">
+                                        Remove
+                                    </button>
+                                    @include('shared.modal', [
+                                        'data' => $product,
+                                        'link' => 'admin.product.destroy',
+                                    ])
 
                                 </td>
                             </tr>
