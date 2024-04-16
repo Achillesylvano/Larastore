@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex-grow py-10 pt-32 bg-gray-100">
         <div class="container px-6 mx-auto">
-
+            @include('shared.flash')
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div class="px-3 pt-4 pb-4 bg-white dark:bg-gray-900 ">
                     <a href="{{ route('admin.product.create') }}"

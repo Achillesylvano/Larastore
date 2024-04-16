@@ -6,6 +6,7 @@ use App\Models\Accessory;
 use Illuminate\Http\Request;
 use App\Models\Accessory\Property;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AccessoryFormRequest;
 
 class AccessoryController extends Controller
