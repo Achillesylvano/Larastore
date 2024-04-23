@@ -5,18 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SearchProductRequest;
 
 class ProductController extends Controller
 {
      /**
      * Display a listing of the resource.
      */
-    public function phoneIndex()
-    {
-        $products = Product::where('type',true)->paginate(12);
+    public function phoneIndex(SearchProductRequest $request)
+    {  
+        $query = Product::query()->orderBy('created_at','desc')->where('type',true);
+        if($brand = $request->validated('brand')){
+            $query = $query->where('brand','like',"%{$brand}%");
+        }
+        if($price = $request->validated('price')){
+            $query = $query->where('price','<=',$price);
+        }
+        if($request->validated('status') != null){
+            $query = $query->where('status','=',$request->boolean('status'));
+        }
 
         return view('product.phone.index',[
-            'products' => $products
+            'products' => $query->paginate(12),
+            'input' => $request->validated()
         ]);
     }
 
@@ -25,12 +36,22 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function computersIndex()
+    public function computersIndex(SearchProductRequest $request)
     {
-        $products = Product::where('type',false)->paginate(12);
+        $query = Product::query()->orderBy('created_at','desc')->where('type',false);
+        if($brand = $request->validated('brand')){
+            $query = $query->where('brand','like',"%{$brand}%");
+        }
+        if($price = $request->validated('price')){
+            $query = $query->where('price','<=',$price);
+        }
+        if($request->validated('status') != null){
+            $query = $query->where('status','=',$request->boolean('status'));
+        }
 
         return view('product.computer.index',[
-            'products' => $products
+            'products' => $query->paginate(12),
+            'input' => $request->validated()
         ]);
     }
 

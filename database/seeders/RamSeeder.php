@@ -15,11 +15,11 @@ class RamSeeder extends Seeder
     {
         DB::table('rams')->delete();
         $rams = array(
-            array('capacity' => 2),
-            array('capacity' => 4),
-            array('capacity' => 8),
-            array('capacity' => 16),
-            array('capacity' => 1),
+            array('capacity' => "1 Go"),
+            array('capacity' => "2 Go"),
+            array('capacity' => "4 Go"),
+            array('capacity' => "8 Go"),
+            array('capacity' => "16 Go"),
         );
         DB::table('rams')->insert($rams);
 

@@ -20,13 +20,12 @@ class ProductFactory extends Factory
             'brand' => fake()->name(),
             'description' => fake()->sentence(6,true),
             'price' =>  fake()->numberBetween(30000,1000000),
-            'sold' => rand(0,1),
             'status' => rand(0,1),
             'type' => rand(0,1),
-            'processor_id' => rand(1,6),
+            'processor_id' => rand(1,32),
             'ram_id' => rand(1,5),
-            'size_id' => rand(1,7),
-            'storage_id' => rand(1,10)
+            'size_id' => rand(1,15),
+            'storage_id' => rand(1,12)
         ];
     }
 }

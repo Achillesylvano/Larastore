@@ -24,6 +24,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::resource('accessory',AdminAccessoryController::class)->except(['show']);
 });
 
+Route::get('/user/dashboard',function () {
+    return view('user.dashboard');
+})->name('dashboard');
+
 Route::get('/login',[AuthController::class,'login'])->name('login');
 Route::post('/login',[AuthController::class,'authenticate']);
 Route::delete('/logout',[AuthController::class,'logout'])->name('logout');

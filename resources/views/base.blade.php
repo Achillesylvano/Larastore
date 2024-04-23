@@ -19,10 +19,10 @@
 
      <!-- Tab Menu -->
      @yield('menu')
-     <div class="flex flex-col min-h-screen">
-
-         @yield('content')
-
+     <div class="flex flex-col min-h-screen py-2 bg-gray-100">
+         <div class="grid flex-auto">
+             @yield('content')
+         </div>
          <!-- Footer -->
          @include('layouts.footer')
 

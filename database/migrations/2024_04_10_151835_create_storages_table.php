@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('storages', function (Blueprint $table) {
             $table->id();
-            $table->integer('capacity');
+            $table->string('capacity');
             $table->timestamps();
         });
     }

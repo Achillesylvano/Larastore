@@ -6,6 +6,7 @@ use App\Models\Accessory;
 use Illuminate\Http\Request;
 use App\Models\Accessory\Property;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AccessoryFormRequest;
 
@@ -16,7 +17,8 @@ class AccessoryController extends Controller
      */
     public function index()
     {
-        $accessories = Accessory::orderBy('id')->paginate(15);
+        $user = Auth::user()->id;
+        $accessories = Accessory::where('user_id',$user)->orderBy('id')->paginate(15);
 
         return view('admin.accessory.index',[
             'accessories' => $accessories

@@ -16,14 +16,16 @@ return new class extends Migration
             $table->string('brand');
             $table->text('description')->nullable();
             $table->integer('price');
-            $table->boolean('sold');
             $table->boolean('status');
             $table->boolean('type');
+            $table->string('image')->nullable();
+
 
             $table->foreignId('processor_id')->constrained();
             $table->foreignId('ram_id')->constrained();
             $table->foreignId('size_id')->constrained();
             $table->foreignId('storage_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

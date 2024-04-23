@@ -20,7 +20,6 @@ class AccessoryFactory extends Factory
             'brand' => fake()->name(),
             'description' => fake()->sentence(6,true),
             'price' =>  fake()->numberBetween(30000,1000000),
-            'sold' => rand(0,1),
             'status' => rand(0,1),
             'property_id' => rand(1,5)
         ];

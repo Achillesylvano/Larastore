@@ -15,16 +15,18 @@ class StorageSeeder extends Seeder
     {
         DB::table('storages')->delete();
         $storages = array(
-            array('capacity' => 4),
-            array('capacity' => 8),
-            array('capacity' => 16),
-            array('capacity' => 32),
-            array('capacity' => 64),
-            array('capacity' => 128),
-            array('capacity' => 160),
-            array('capacity' => 320),
-            array('capacity' => 500),
-            array('capacity' => 1000)
+            array('capacity' => "4 Go"),
+            array('capacity' => "8 Go"),
+            array('capacity' => "16 Go"),
+            array('capacity' => "32 Go"),
+            array('capacity' => "64 Go"),
+            array('capacity' => "128 Go"),
+            array('capacity' => "160 Go"),
+            array('capacity' => "256 Go"),
+            array('capacity' => "320 Go"),
+            array('capacity' => "500 Go"),
+            array('capacity' => "1 To"),
+            array('capacity' => "2 To"),
         );
         DB::table('storages')->insert($storages);
     }

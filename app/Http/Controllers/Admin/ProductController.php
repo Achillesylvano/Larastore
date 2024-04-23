@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Productproperty\Ram;
 use App\Http\Controllers\Controller;
 use App\Models\Productproperty\Size;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Productproperty\Processor;
@@ -19,7 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at','desc')->paginate(15);
+        $user ??= Auth::user()->id;
+        $products = Product::where('user_id',$user)->orderBy('created_at','desc')->paginate(15);
 
         return view('admin.product.index',[
             'products' => $products

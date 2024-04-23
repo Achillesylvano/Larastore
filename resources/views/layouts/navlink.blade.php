@@ -1,8 +1,9 @@
 <!-- Title -->
-<div class="pt-32 bg-white">
+{{-- <div class="bg-white pt-24">
     <h1 class="text-2xl font-bold text-center text-gray-800">All Products</h1>
-</div>
-<div class="flex flex-wrap items-center justify-center py-10 overflow-x-auto overflow-y-hidden text-gray-800 bg-white">
+</div> --}}
+<div
+    class="pt-24 flex flex-wrap items-center justify-center py-2 overflow-x-auto overflow-y-hidden text-gray-800 bg-white">
     <a rel="noopener noreferrer" href="{{ route('products.phone') }}"
         class="flex items-center flex-shrink-0 px-5 py-3 space-x-2 text-gray-900 rounded-t-lg">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -36,4 +37,35 @@
         </svg>
         <span>Accessory</span>
     </a>
+</div>
+<div class="bg-gray-50 mb-2 px-2 text-center container">
+    <form action="" method="GET" class="flex items-center space-x-4">
+        <input name="brand" type="text"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Product" value="{{ $input['brand'] ?? '' }}">
+        <input name="price" type="number"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+            placeholder="Max Price" value="{{ $input['price'] ?? '' }}">
+        <select id="status" name="status"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option selected value="">Choose a status</option>
+            <option value="1">Nouveau</option>
+            <option value="0">Occasion</option>
+        </select>
+        @php
+            $accessories ??= false;
+        @endphp
+        @includeWhen($accessories, 'shared.select-search', [
+            'name' => 'property_id',
+            'label' => 'Category',
+        ])
+        <button
+            class="inline-flex items-center py-2.5 px-3 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            </svg>Search
+        </button>
+    </form>
 </div>

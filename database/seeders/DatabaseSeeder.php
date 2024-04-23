@@ -27,13 +27,11 @@ class DatabaseSeeder extends Seeder
             StorageSeeder::class,
             PropertySeeder::class
         ]);
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->hasProducts(5)->hasAccessories(5)->create();
 
         \App\Models\User::factory()->create([
             'name' => 'Achille',
             'email' => 'achille@gmail.com',
         ]);
-        Product::factory(40)->create();
-        Accessory::factory(40)->create();
     }
 }

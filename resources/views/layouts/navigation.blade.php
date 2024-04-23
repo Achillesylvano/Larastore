@@ -34,13 +34,19 @@
                     class="flex items-center text-sm font-medium text-gray-900 rounded-full pe-1 hover:text-blue-600 dark:hover:text-blue-500 md:me-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white"
                     type="button">
                     <span class="sr-only">Open user menu</span>
-                    <img class="w-8 h-8 rounded-full me-2" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
-                    {{ Auth::user()->name }}
-                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
+                    <div class="flex items-center gap-4">
+                        <div class="relative w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                            <svg class="absolute w-10 h-10 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="font-medium dark:text-white">
+                            <div>{{ Auth::user()->name }}</div>
+                        </div>
+                    </div>
+
                 </button>
 
                 <!-- Dropdown menu -->
@@ -53,7 +59,7 @@
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                         <li>
-                            <a href="#"
+                            <a href="{{ route('dashboard') }}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
                         </li>
                         <li>

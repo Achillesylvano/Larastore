@@ -16,12 +16,14 @@ return new class extends Migration
             $table->string('brand');
             $table->text('description')->nullable();
             $table->integer('price');
-            $table->boolean('sold');
             $table->boolean('status');
+            $table->string('image')->nullable();
+
 
             $table->unsignedBigInteger('property_id');
 
             $table->foreign('property_id')->references('id')->on('properties');
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
