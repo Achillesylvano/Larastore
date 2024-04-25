@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function phoneIndex(SearchProductRequest $request)
     {  
-        $query = Product::query()->orderBy('created_at','desc')->where('type',true);
+        $query = Product::query()->orderBy('created_at','desc')->whereType(true);
         if($brand = $request->validated('brand')){
             $query = $query->where('brand','like',"%{$brand}%");
         }
@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function computersIndex(SearchProductRequest $request)
     {
-        $query = Product::query()->orderBy('created_at','desc')->where('type',false);
+        $query = Product::query()->orderBy('created_at','desc')->whereType(false);
         if($brand = $request->validated('brand')){
             $query = $query->where('brand','like',"%{$brand}%");
         }

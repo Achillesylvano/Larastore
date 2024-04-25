@@ -4,12 +4,6 @@
         <div class="grid justify-center flex-grow lg:justify-between">
             <div class="flex flex-col self-center text-sm text-center md:block lg:col-start-1 md:space-x-6">
                 <span>Copy right © 2024 by Larastore </span>
-                <a rel="noopener noreferrer" href="#">
-                    <span>Privacy policy</span>
-                </a>
-                <a rel="noopener noreferrer" href="#">
-                    <span>Terms of service</span>
-                </a>
             </div>
             <div class="flex justify-center pt-4 space-x-4 lg:pt-0 lg:col-end-13">
                 <a rel="noopener noreferrer" href="#" title="Email"

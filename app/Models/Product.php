@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Productproperty\Ram;
 use App\Models\Productproperty\Size;
 use Illuminate\Database\Eloquent\Model;
@@ -47,6 +48,11 @@ class Product extends Model
     public function storage(): BelongsTo
     {
         return $this->belongsTo(ProductStorage::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

@@ -6,7 +6,9 @@ namespace App\Models;
 use App\Models\Product;
 use App\Models\Accessory;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar'
     ];
 
     /**
@@ -54,5 +57,20 @@ class User extends Authenticatable
     public function accessories(): HasMany
     {
         return $this->hasMany(Accessory::class);
+    }
+
+     /**
+     * Retourne le chemin de l'image
+     * si l'image ne s'affiche pas
+     * changer le APP_URL dans .env
+     * @return string
+     */
+    public function imageUrl() : string {
+        return Storage::disk('public')->url($this->avatar);
+    }
+
+    public function scopeVerified(Builder $query)
+    {
+        $query->whereNotNull('email_verified_at');
     }
 }
