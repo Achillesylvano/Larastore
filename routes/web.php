@@ -26,11 +26,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function() {
     Route::resource('accessory',AdminAccessoryController::class)->except(['show']);
 });
 
-Route::get('/user/dashboard', IndexController::class)->name('dashboard');
+Route::get('/user/dashboard', IndexController::class)->middleware('admin')->name('dashboard');
 
-Route::get('/login',[AuthController::class,'login'])->name('login');
+Route::get('/login',[AuthController::class,'login'])->middleware('guest')->name('login');
 Route::post('/login',[AuthController::class,'authenticate']);
-Route::delete('/logout',[AuthController::class,'logout'])->name('logout');
+Route::delete('/logout',[AuthController::class,'logout'])->middleware('auth')->name('logout');
 
 Route::get('/contact',[ContactController::class,'indexContactUS'])->name('contact');
 Route::post('/contact',[ContactController::class,'contactUs']);
