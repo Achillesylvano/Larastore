@@ -27,6 +27,7 @@ class RegisterUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'email_verified_at' => \now()
         ]);
 
         Auth::login($user);

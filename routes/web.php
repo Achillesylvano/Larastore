@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\AccessoryController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\RegisterUserController;
@@ -47,8 +48,9 @@ Route::get('/accessories/{accessory}', [AccessoryController::class, 'show'])->na
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 });
 
 

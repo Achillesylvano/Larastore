@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
@@ -36,16 +37,29 @@ class ProfileController extends Controller
 
         $request->user()->update($validated);
 
-        return Redirect::route('profile.edit')->with('success', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
   
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Request $request): RedirectResponse
     {
-        //
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return Redirect::to('/login');
     }
 
     private function handleData(ProfileUpdateRequest $request): array
