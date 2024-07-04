@@ -18,10 +18,10 @@ class AccessoryFactory extends Factory
     {
         return [
             'brand' => fake()->name(),
-            'description' => fake()->sentence(6,true),
-            'price' =>  fake()->numberBetween(30000,1000000),
-            'status' => rand(0,1),
-            'property_id' => rand(1,5)
+            'description' => fake()->sentence(6, true),
+            'price' => fake()->numberBetween(20, 900),
+            'status' => rand(0, 1),
+            'property_id' => rand(1, 5)
         ];
     }
 }

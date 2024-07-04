@@ -59,7 +59,7 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/login');
+        return Redirect::to('/login')->with('status','User-deleted');
     }
 
     private function handleData(ProfileUpdateRequest $request): array

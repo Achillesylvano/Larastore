@@ -73,12 +73,14 @@
                                 <h3 class="mb-4 text-xl font-semibold dark:text-white">General information</h3>
 
                                 <div class="grid grid-cols-6 gap-6">
-                                    @include('shared.input', [
-                                        'label' => 'Name',
-                                        'placeholder' => 'Iphone 14',
-                                        'name' => 'brand',
-                                        'value' => $product->brand,
-                                    ])
+                                    <div class="col-span-6 sm:col-span-3">
+                                        @include('shared.input', [
+                                            'label' => 'Name',
+                                            'placeholder' => 'Iphone 14',
+                                            'name' => 'brand',
+                                            'value' => $product->brand,
+                                        ])
+                                    </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                             Status
@@ -121,13 +123,15 @@
                                             <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                                         @enderror
                                     </div>
-                                    @include('shared.input', [
-                                        'label' => 'Price',
-                                        'type' => 'number',
-                                        'placeholder' => '100000',
-                                        'name' => 'price',
-                                        'value' => $product->price,
-                                    ])
+                                    <div class="col-span-6 sm:col-span-3">
+                                        @include('shared.input', [
+                                            'label' => 'Price',
+                                            'type' => 'number',
+                                            'placeholder' => '100000',
+                                            'name' => 'price',
+                                            'value' => $product->price,
+                                        ])
+                                    </div>
                                     <div class="col-span-full">
                                         @include('shared.input', [
                                             'label' => 'Description',

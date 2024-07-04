@@ -7,7 +7,7 @@
         <h2 class="text-slate-700">{{ $product->brand }}</h2>
         <p class="mb-2 text-xs font-light text-orange-500">{{ $product->status ? 'Nouveau' : 'Occasion' }}</p>
         <div class="flex items-end justify-between mt-3">
-            <p class="text-lg font-bold text-blue-500">${{ $product->price }}</p>
+            <p class="text-lg font-bold text-blue-500">{{ $product->formatted_price }}</p>
             <div
                 class="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

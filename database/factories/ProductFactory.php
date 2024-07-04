@@ -18,14 +18,14 @@ class ProductFactory extends Factory
     {
         return [
             'brand' => fake()->name(),
-            'description' => fake()->sentence(6,true),
-            'price' =>  fake()->numberBetween(30000,1000000),
-            'status' => rand(0,1),
-            'type' => rand(0,1),
-            'processor_id' => rand(1,32),
-            'ram_id' => rand(1,5),
-            'size_id' => rand(1,15),
-            'storage_id' => rand(1,12)
+            'description' => fake()->sentence(6, true),
+            'price' => fake()->numberBetween(100, 10000),
+            'status' => rand(0, 1),
+            'type' => rand(0, 1),
+            'processor_id' => rand(1, 32),
+            'ram_id' => rand(1, 5),
+            'size_id' => rand(1, 15),
+            'storage_id' => rand(1, 12)
         ];
     }
 }

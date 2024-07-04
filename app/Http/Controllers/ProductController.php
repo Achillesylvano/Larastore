@@ -3,53 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchProductRequest;
 
 class ProductController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function phoneIndex(SearchProductRequest $request)
-    {  
-        $query = Product::query()->orderBy('created_at','desc')->whereType(true);
-        if($brand = $request->validated('brand')){
-            $query = $query->where('brand','like',"%{$brand}%");
-        }
-        if($price = $request->validated('price')){
-            $query = $query->where('price','<=',$price);
-        }
-        if($request->validated('status') != null){
-            $query = $query->where('status','=',$request->boolean('status'));
-        }
+    {
+        $brand = $request->validated('brand');
+        $price = $request->validated('price');
+        $status = $request->validated('status');
 
-        return view('product.phone.index',[
+        $query = Product::query()
+            ->latest()
+            ->whereType(true)
+            ->FilterByName($brand)
+            ->FilterByPrice($price)
+            ->FilterByStatus($status);
+
+        return view('product.phone.index', [
             'products' => $query->paginate(12),
             'input' => $request->validated()
         ]);
     }
 
-     /**
+    /**
      * Display a listing of the computer products.
      *
      * @return \Illuminate\Http\Response
      */
-    public function computersIndex(SearchProductRequest $request)
+    public function computersIndex(SearchProductRequest $request): View
     {
-        $query = Product::query()->orderBy('created_at','desc')->whereType(false);
-        if($brand = $request->validated('brand')){
-            $query = $query->where('brand','like',"%{$brand}%");
-        }
-        if($price = $request->validated('price')){
-            $query = $query->where('price','<=',$price);
-        }
-        if($request->validated('status') != null){
-            $query = $query->where('status','=',$request->boolean('status'));
-        }
+        $brand = $request->validated('brand');
+        $price = $request->validated('price');
+        $status = $request->validated('status');
 
-        return view('product.computer.index',[
+        $query = Product::query()
+            ->latest()
+            ->whereType(false)
+            ->FilterByName($brand)
+            ->FilterByPrice($price)
+            ->FilterByStatus($status);
+
+        return view('product.computer.index', [
             'products' => $query->paginate(12),
             'input' => $request->validated()
         ]);
@@ -60,7 +61,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show',[
+        return view('product.show', [
             'product' => $product
         ]);
     }

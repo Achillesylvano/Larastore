@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('property_id');
 
             $table->foreign('property_id')->references('id')->on('properties');
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

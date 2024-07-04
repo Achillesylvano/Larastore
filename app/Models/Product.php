@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Support\Number;
 use App\Models\Productproperty\Ram;
 use App\Models\Productproperty\Size;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Productproperty\Processor;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Productproperty\Storage as ProductStorage;
@@ -39,7 +41,7 @@ class Product extends Model
     {
         return $this->belongsTo(Ram::class);
     }
-    
+
     public function size(): BelongsTo
     {
         return $this->belongsTo(Size::class);
@@ -61,7 +63,37 @@ class Product extends Model
      * changer le APP_URL dans .env
      * @return string
      */
-    public function imageUrl() : string {
+    public function imageUrl(): string
+    {
         return Storage::disk('public')->url($this->image);
+    }
+
+    public function getFormattedPriceAttribute()
+    {
+        return Number::format($this->price, locale: 'de') . '€';
+    }
+
+    public function scopeFilterByName(Builder $query, ?string $brand): Builder
+    {
+        if ($brand) {
+            return $query->where('brand', 'like', "%{$brand}%");
+        }
+        return $query;
+    }
+
+    public function scopeFilterByPrice(Builder $query, ?string $price): Builder
+    {
+        if ($price) {
+            return $query->where('price', '<=', $price);
+        }
+        return $query;
+    }
+
+    public function scopeFilterByStatus(Builder $query, ?string $status): Builder
+    {
+        if ($status != null) {
+            return $query->where('status', (bool) $status);
+        }
+        return $query;
     }
 }

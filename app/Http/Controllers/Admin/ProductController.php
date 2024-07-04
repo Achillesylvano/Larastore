@@ -49,8 +49,10 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
+        $user = Auth::user();
         $product = new Product;
-        $product = Product::create($this->handleData($product,$request));
+        
+        $product = $user->products()->create($this->handleData($product,$request));
 
         return to_route('admin.product.index')->with('success','Le produit a bien été créé');
     }

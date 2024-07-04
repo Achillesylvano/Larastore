@@ -47,7 +47,7 @@
                                     {{ $product->type ? 'smartphone' : 'computer' }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    ${{ number_format($product->price, thousands_separator: ' ') }}
+                                    {{ $product->formatted_price }}
                                 </td>
                                 <td class="p-4 space-x-2 whitespace-nowrap">
 

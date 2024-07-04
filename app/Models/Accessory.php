@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use Illuminate\Support\Number;
 use App\Models\Accessory\Property;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -27,18 +28,24 @@ class Accessory extends Model
         return $this->belongsTo(Property::class);
     }
 
-     /**
+    /**
      * Retourne le chemin de l'image
      * si l'image ne s'affiche pas
      * changer le APP_URL dans .env
      * @return string
      */
-    public function imageUrl() : string {
+    public function imageUrl(): string
+    {
         return Storage::disk('public')->url($this->image);
     }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getFormattedPriceAttribute()
+    {
+        return Number::format($this->price, locale: 'de') . '€';
     }
 }

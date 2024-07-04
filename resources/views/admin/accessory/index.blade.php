@@ -47,7 +47,7 @@
                                     {{ $accessory->property->category }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    ${{ number_format($accessory->price, thousands_separator: ' ') }}
+                                    {{ $accessory->formatted_price }}
                                 </td>
                                 <td class="p-4 space-x-2 whitespace-nowrap">
                                     <a href="{{ route('admin.accessory.edit', $accessory) }}"
