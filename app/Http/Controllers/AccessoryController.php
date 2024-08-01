@@ -14,24 +14,23 @@ class AccessoryController extends Controller
      */
     public function index(SearchAccessoryRequest $request)
     {
-        $query = Accessory::query()
-            ->orderBy('created_at', 'desc');
-        if ($brand = $request->validated('brand')) {
-            $query = $query->where('brand', 'like', "%{$brand}%");
-        }
-        if ($price = $request->validated('price')) {
-            $query = $query->where('price', '<=', $price);
-        }
-        if ($property_id = $request->validated('property_id')) {
-            $query = $query->where('property_id', '=', $property_id);
-        }
-        if ($request->validated('status') != null) {
-            $query = $query->where('status', '=', $request->boolean('status'));
-        }
+        $validated = $request->validated();
+        $brand = $request->validated('brand');
+        $price = $request->validated('price');
+        $property_id = $request->validated('property_id');
+        $status = $request->validated('status');
+
+        $accessories = Accessory::query()
+            ->FilterByName($brand)
+            ->FilterByPrice($price)
+            ->FilterByProperty($property_id)
+            ->FilterByStatus($status)
+            ->latest()
+            ->paginate(12);
 
         return view('accessory.index', [
-            'accessories' => $query->paginate(12),
-            'input' => $request->validated(),
+            'accessories' => $accessories,
+            'input' => $validated,
             'properties' => Property::pluck('category', 'id')
         ]);
     }

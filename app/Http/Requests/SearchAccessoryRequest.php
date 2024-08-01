@@ -22,10 +22,10 @@ class SearchAccessoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'brand' => ['nullable','string'],
-            'price' => ['numeric','gte:0','nullable'],
+            'brand' => ['nullable', 'string'],
+            'price' => ['numeric', 'gte:0', 'nullable'],
             'status' => ['nullable'],
-            'property_id' => ['nullable'],
+            'property_id' => ['nullable', 'exists:accessories,property_id'],
         ];
     }
 }

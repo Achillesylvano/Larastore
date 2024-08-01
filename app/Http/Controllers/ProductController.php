@@ -15,20 +15,14 @@ class ProductController extends Controller
      */
     public function phoneIndex(SearchProductRequest $request)
     {
-        $brand = $request->validated('brand');
-        $price = $request->validated('price');
-        $status = $request->validated('status');
-
-        $query = Product::query()
-            ->latest()
+        $validated = $request->validated();
+        $phone = ($this->filterProduct($request))
             ->whereType(true)
-            ->FilterByName($brand)
-            ->FilterByPrice($price)
-            ->FilterByStatus($status);
+            ->paginate(12);
 
         return view('product.phone.index', [
-            'products' => $query->paginate(12),
-            'input' => $request->validated()
+            'products' => $phone,
+            'input' => $validated
         ]);
     }
 
@@ -39,20 +33,14 @@ class ProductController extends Controller
      */
     public function computersIndex(SearchProductRequest $request): View
     {
-        $brand = $request->validated('brand');
-        $price = $request->validated('price');
-        $status = $request->validated('status');
-
-        $query = Product::query()
-            ->latest()
+        $validated = $request->validated();
+        $computers = ($this->filterProduct($request))
             ->whereType(false)
-            ->FilterByName($brand)
-            ->FilterByPrice($price)
-            ->FilterByStatus($status);
+            ->paginate(12);
 
         return view('product.computer.index', [
-            'products' => $query->paginate(12),
-            'input' => $request->validated()
+            'products' => $computers,
+            'input' => $validated
         ]);
     }
 
@@ -64,5 +52,20 @@ class ProductController extends Controller
         return view('product.show', [
             'product' => $product
         ]);
+    }
+
+    private function filterProduct(SearchProductRequest $request)
+    {
+        $brand = $request->validated('brand');
+        $price = $request->validated('price');
+        $status = $request->validated('status');
+
+        $query = Product::query()
+            ->FilterByName($brand)
+            ->FilterByPrice($price)
+            ->FilterByStatus($status)
+            ->latest();
+
+        return $query;
     }
 }

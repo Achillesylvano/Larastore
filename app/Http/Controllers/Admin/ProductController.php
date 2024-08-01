@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use App\Models\Productproperty\Ram;
 use App\Http\Controllers\Controller;
 use App\Models\Productproperty\Size;
@@ -20,10 +21,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $user ??= Auth::user()->id;
-        $products = Product::where('user_id',$user)->orderBy('created_at','desc')->paginate(15);
+        $user = Auth::user();
+        $products = $user
+            ->products()
+            ->latest()
+            ->paginate(15);
 
-        return view('admin.product.index',[
+        return view('admin.product.index', [
             'products' => $products
         ]);
     }
@@ -35,12 +39,12 @@ class ProductController extends Controller
     {
         $product = new Product;
 
-        return view('admin.product.edit-create',[
+        return view('admin.product.edit-create', [
             'product' => $product,
-            'processors' => Processor::pluck('name','id'),
-            'rams' => Ram::pluck('capacity','id'),
-            'sizes' => Size::pluck('length','id'),
-            'storages' => ProductStorage::pluck('capacity','id')
+            'processors' => Processor::pluck('name', 'id'),
+            'rams' => Ram::pluck('capacity', 'id'),
+            'sizes' => Size::pluck('length', 'id'),
+            'storages' => ProductStorage::pluck('capacity', 'id')
         ]);
     }
 
@@ -51,10 +55,10 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $product = new Product;
-        
-        $product = $user->products()->create($this->handleData($product,$request));
 
-        return to_route('admin.product.index')->with('success','Le produit a bien été créé');
+        $product = $user->products()->create($this->handleData($product, $request));
+
+        return to_route('admin.product.index')->with('success', 'Le produit a bien été créé');
     }
 
     /**
@@ -70,12 +74,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.product.edit-create',[
+        return view('admin.product.edit-create', [
             'product' => $product,
-            'processors' => Processor::pluck('name','id'),
-            'rams' => Ram::pluck('capacity','id'),
-            'sizes' => Size::pluck('length','id'),
-            'storages' => ProductStorage::pluck('capacity','id')
+            'processors' => Processor::pluck('name', 'id'),
+            'rams' => Ram::pluck('capacity', 'id'),
+            'sizes' => Size::pluck('length', 'id'),
+            'storages' => ProductStorage::pluck('capacity', 'id')
         ]);
     }
 
@@ -84,10 +88,10 @@ class ProductController extends Controller
      */
     public function update(ProductFormRequest $request, Product $product)
     {
-        $data = $this->handleData($product,$request);
+        $data = $this->handleData($product, $request);
         $product->update($data);
 
-        return to_route('admin.product.index')->with('success','Le produit a bien été modifier');
+        return to_route('admin.product.index')->with('success', 'Le produit a bien été modifier');
 
     }
 
@@ -96,11 +100,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if($product->image){
+        if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
-        return to_route('admin.product.index')->with('success','Le produit a bien été supprimer');
+        return to_route('admin.product.index')->with('success', 'Le produit a bien été supprimer');
 
     }
 
@@ -112,13 +116,13 @@ class ProductController extends Controller
          * @var UploadedFile|null $image
          */
         $image = $request->validated('image');
-        if($image === null || $image->getError()){
+        if ($image === null || $image->getError()) {
             return $data;
         }
-        if($product->image){
+        if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
-        $data['image'] = $image->store('product','public');
+        $data['image'] = $image->store('product', 'public');
         return $data;
     }
 }

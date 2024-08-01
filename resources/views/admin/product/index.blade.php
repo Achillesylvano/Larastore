@@ -41,7 +41,7 @@
                                     {{ $product->brand }}
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{ $product->size->length }}"
+                                    {{ $product->size->length }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $product->type ? 'smartphone' : 'computer' }}

@@ -11,10 +11,10 @@
             </div>
         @endforelse
 
-
+        <div class="col-span-full">
+            {{ $products->links() }}
+        </div>
     </div>
-
-    {{ $products->links() }}
 @endsection
 
 @section('menu')
