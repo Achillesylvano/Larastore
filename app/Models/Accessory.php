@@ -72,10 +72,11 @@ class Accessory extends Model
     public function scopeFilterByStatus(Builder $query, ?string $status): Builder
     {
         if ($status != null) {
-            return $query->where('status', (bool) $status);
+            return $query->where('status', (bool)$status);
         }
         return $query;
     }
+
     public function getFormattedPriceAttribute()
     {
         return Number::format($this->price, locale: 'de') . '€';

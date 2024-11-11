@@ -18,9 +18,9 @@ class AccessoryController extends Controller
     public function index()
     {
         $user = Auth::user()->id;
-        $accessories = Accessory::where('user_id',$user)->orderBy('id')->paginate(15);
+        $accessories = Accessory::where('user_id', $user)->orderBy('id')->paginate(15);
 
-        return view('admin.accessory.index',[
+        return view('admin.accessory.index', [
             'accessories' => $accessories
         ]);
     }
@@ -32,9 +32,9 @@ class AccessoryController extends Controller
     {
         $accessory = new Accessory;
 
-        return view('admin.accessory.edit-create',[
+        return view('admin.accessory.edit-create', [
             'accessory' => $accessory,
-            'properties' => Property::pluck('category','id'),
+            'properties' => Property::pluck('category', 'id'),
         ]);
     }
 
@@ -45,9 +45,9 @@ class AccessoryController extends Controller
     {
         $user = Auth::user();
         $accessory = new Accessory;
-        $accessory = $user->accessories()->create($this->handleData($accessory,$request));
+        $accessory = $user->accessories()->create($this->handleData($accessory, $request));
 
-        return to_route('admin.accessory.index')->with('success','L \' accessoire a bien été créé');
+        return to_route('admin.accessory.index')->with('success', 'L \' accessoire a bien été créé');
     }
 
     /**
@@ -63,10 +63,10 @@ class AccessoryController extends Controller
      */
     public function edit(Accessory $accessory)
     {
-        
-        return view('admin.accessory.edit-create',[
+
+        return view('admin.accessory.edit-create', [
             'accessory' => $accessory,
-            'properties' => Property::pluck('category','id')
+            'properties' => Property::pluck('category', 'id')
         ]);
     }
 
@@ -75,10 +75,10 @@ class AccessoryController extends Controller
      */
     public function update(AccessoryFormRequest $request, Accessory $accessory)
     {
-        $data = $this->handleData($accessory,$request);
+        $data = $this->handleData($accessory, $request);
         $accessory->update($data);
 
-        return to_route('admin.accessory.index')->with('success','L \' accessoire a bien été modifier');
+        return to_route('admin.accessory.index')->with('success', 'L \' accessoire a bien été modifier');
 
     }
 
@@ -87,11 +87,12 @@ class AccessoryController extends Controller
      */
     public function destroy(Accessory $accessory)
     {
-        if($accessory->image){
+        $this->authorize('delete', $accessory);
+        if ($accessory->image) {
             Storage::disk('public')->delete($accessory->image);
         }
         $accessory->delete();
-        return to_route('admin.accessory.index')->with('success','L\' accessoire a bien été supprimer');
+        return to_route('admin.accessory.index')->with('success', 'L\' accessoire a bien été supprimer');
 
     }
 
@@ -103,13 +104,13 @@ class AccessoryController extends Controller
          * @var UploadedFile|null $image
          */
         $image = $request->validated('image');
-        if($image === null || $image->getError()){
+        if ($image === null || $image->getError()) {
             return $data;
         }
-        if($accessory->image){
+        if ($accessory->image) {
             Storage::disk('public')->delete($accessory->image);
         }
-        $data['image'] = $image->store('accessory','public');
+        $data['image'] = $image->store('accessory', 'public');
         return $data;
     }
 }

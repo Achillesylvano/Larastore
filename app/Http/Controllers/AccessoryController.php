@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accessory;
-use Illuminate\Http\Request;
 use App\Models\Accessory\Property;
 use App\Http\Requests\SearchAccessoryRequest;
 

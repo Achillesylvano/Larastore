@@ -11,11 +11,11 @@
                 Aucun produit ne correspond à votre recherche
             </div>
         @endforelse
-
+        <div class="col-span-full">
+            {{ $accessories->links() }}
+        </div>
 
     </div>
-
-    {{ $accessories->links() }}
 @endsection
 
 @section('menu')

@@ -11,11 +11,8 @@ use App\Models\User;
 
 class DashboardDataService
 {
-    public function getDashboardData()
+    public function getDashboardData(): array
     {
-        $products = Product::latest()->paginate(10);
-        $accessories = Accessory::latest()->paginate(10);
-
         $productSmartphoneCount = Product::whereType(true)
             ->count();
 
@@ -41,8 +38,6 @@ class DashboardDataService
             'accessoryVariationPercentage' => $accessoryVariationPercentage,
             'subscribersCount' => $subscribersCount,
             'subscribersVariationPercentage' => $subscribersVariationPercentage,
-            'products' => $products,
-            'accessories' => $accessories
         ];
 
     }

@@ -13,11 +13,12 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function phoneIndex(SearchProductRequest $request)
+    public function phoneIndex(SearchProductRequest $request): View
     {
         $validated = $request->validated();
         $phone = ($this->filterProduct($request))
             ->whereType(true)
+            ->latest()
             ->paginate(12);
 
         return view('product.phone.index', [
@@ -26,16 +27,12 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Display a listing of the computer products.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function computersIndex(SearchProductRequest $request): View
     {
         $validated = $request->validated();
         $computers = ($this->filterProduct($request))
             ->whereType(false)
+            ->latest()
             ->paginate(12);
 
         return view('product.computer.index', [
@@ -60,12 +57,9 @@ class ProductController extends Controller
         $price = $request->validated('price');
         $status = $request->validated('status');
 
-        $query = Product::query()
+        return Product::query()
             ->FilterByName($brand)
             ->FilterByPrice($price)
-            ->FilterByStatus($status)
-            ->latest();
-
-        return $query;
+            ->FilterByStatus($status);
     }
 }

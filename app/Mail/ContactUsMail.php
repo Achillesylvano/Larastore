@@ -29,7 +29,7 @@ class ContactUsMail extends Mailable
         return new Envelope(
             to: 'admin@larastore.com',
             replyTo: $this->data['email'],
-            subject: 'Conctact Us Mail',
+            subject: 'Contact Us Mail',
         );
     }
 
