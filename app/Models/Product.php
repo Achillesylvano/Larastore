@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Contracts\Sluggable;
 use App\Models\User;
+use App\Traits\HasSlug;
+use Illuminate\Support\Str;
 use Illuminate\Support\Number;
 use App\Models\Productproperty\Ram;
 use App\Models\Productproperty\Size;
@@ -14,9 +17,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Productproperty\Storage as ProductStorage;
 
-class Product extends Model
+class Product extends Model implements Sluggable
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $fillable = [
         'brand',
@@ -29,9 +32,29 @@ class Product extends Model
         'processor_id',
         'ram_id',
         'size_id',
-        'storage_id'
+        'storage_id',
+        'slug'
     ];
 
+    public function slugAttribute(): string
+    {
+        return 'brand';
+    }
+
+    // public static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::creating(function (Product $model) {
+    //         $title = $model->brand;
+    //         $model->slug = Str::slug($title);
+    //     });
+
+    //     static::updating(function (Product $model) {
+    //         $title = $model->brand;
+    //         $model->slug = Str::slug($title);
+    //     });
+    // }
     public function processor(): BelongsTo
     {
         return $this->belongsTo(Processor::class);

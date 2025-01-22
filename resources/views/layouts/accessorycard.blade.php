@@ -2,7 +2,7 @@
     <div class="relative flex items-end h-48 overflow-hidden rounded-xl">
         <img src="{{ $accessory->imageUrl() }}" class="object-contain w-full h-full" alt="accessory photo"/>
     </div>
-    <a class="p-2 mt-1" href="{{ route('accessories.show', $accessory) }}">
+    <a class="p-2 mt-1" href="{{ $accessory->slug ? route('accessories.show', $accessory) :"#" }}">
         <h2 class="text-gray-900">{{ $accessory->brand }}</h2>
         <p class="mt-1">
             <span class="mt-3 text-xs text-slate-700">{{ $accessory->property->category }} -</span>

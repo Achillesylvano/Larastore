@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accessory;
 use App\Models\Accessory\Property;
 use App\Http\Requests\SearchAccessoryRequest;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AccessoryController extends Controller
 {

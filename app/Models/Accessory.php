@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Traits\HasSlug;
+use App\Contracts\Sluggable;
 use Illuminate\Support\Number;
 use App\Models\Accessory\Property;
 use Illuminate\Database\Eloquent\Model;
@@ -11,9 +13,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Accessory extends Model
+class Accessory extends Model implements Sluggable
 {
-    use HasFactory;
+    use HasFactory, HasSlug;
 
     protected $fillable = [
         'brand',
@@ -21,8 +23,14 @@ class Accessory extends Model
         'price',
         'status',
         'property_id',
-        'image'
+        'image',
+        'slug'
     ];
+
+    public function slugAttribute(): string
+    {
+        return 'brand';
+    }
 
     public function property(): BelongsTo
     {
@@ -72,7 +80,7 @@ class Accessory extends Model
     public function scopeFilterByStatus(Builder $query, ?string $status): Builder
     {
         if ($status != null) {
-            return $query->where('status', (bool)$status);
+            return $query->where('status', (bool) $status);
         }
         return $query;
     }

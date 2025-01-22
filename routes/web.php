@@ -44,10 +44,10 @@ Route::post('/register', [RegisterUserController::class, 'store']);
 
 Route::get('/', [ProductController::class, 'computersIndex'])->name('products.computer');
 Route::get('/phone', [ProductController::class, 'phoneIndex'])->name('products.phone');
-Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('products.show');
 
 Route::get('/accessories', [AccessoryController::class, 'index'])->name('accessories.index');
-Route::get('/accessories/{accessory}', [AccessoryController::class, 'show'])->name('accessories.show');
+Route::get('/accessories/{accessory:slug}', [AccessoryController::class, 'show'])->name('accessories.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
